@@ -15,3 +15,11 @@ Example Urls:
 SemVer for GH-Action:
 
 [git - Github versioning: is it possible to have two separate sequences in the tags? - Stack Overflow](https://stackoverflow.com/questions/73121689/github-versioning-is-it-possible-to-have-two-separate-sequences-in-the-tags)
+
+```shell
+git commit --allow-empty -m "(MINOR) Empty commit, bumps MINOR version"
+```
+
+```shell
+git commit --allow-empty -m "(MAJOR) Empty commit, bumps MAJOR version"
+```

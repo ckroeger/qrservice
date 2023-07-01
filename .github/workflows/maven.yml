@@ -62,6 +62,7 @@ jobs:
     - name: output
       run: |
         echo "${{ steps.tag_version_develop.outputs.version_tag }}"
+        echo "Outputs: ${{ steps.tag_version_develop.outputs }}"
 
     - name: Build with Maven
       run: mvn -B --no-transfer-progress package --file pom.xml

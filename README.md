@@ -23,3 +23,8 @@ git commit --allow-empty -m "(MINOR) Empty commit, bumps MINOR version"
 ```shell
 git commit --allow-empty -m "(MAJOR) Empty commit, bumps MAJOR version"
 ```
+
+Open Todos:
+* Set Version to maven
+* Add Spring Rest Doc
+* 

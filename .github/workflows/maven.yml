@@ -28,6 +28,8 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
+#  https://github.com/marketplace/actions/git-semantic-version
+
     - name: Git Semantic Version
       uses: PaulHatch/semantic-version@v5.0.3
       id: tag_version_develop

@@ -27,6 +27,12 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+
+    - name: Git Semantic Version
+      uses: PaulHatch/semantic-version@v5.0.3
+      run: |
+        echo "${{ version }}"
+
     - name: Build with Maven
       run: mvn -B --no-transfer-progress package --file pom.xml
 

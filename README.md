@@ -17,9 +17,14 @@ Example Urls:
   * [git - Github versioning: is it possible to have two separate sequences in the tags? - Stack Overflow](https://stackoverflow.com/questions/73121689/github-versioning-is-it-possible-to-have-two-separate-sequences-in-the-tags)
   * [actions/upload-release-asset: An Action to upload a release asset via the GitHub Release API](https://github.com/actions/upload-release-asset)
 * Maven
-  * [Maven – Maven CI Friendly Versions](https://maven.apache.org/maven-ci-friendly.html)
-  * [Simplified application versioning with maven](https://blog.pchudzik.com/201905/maven-revision/)
-  * [Faster release with Maven CI Friendly Versions and a customised flatten plugin | by Avi Youkhananov | Outbrain Engineering | Medium](https://medium.com/outbrain-engineering/faster-release-with-maven-ci-friendly-versions-and-a-customised-flatten-plugin-fe53f0fcc0df)
+  * CI - Topic - Versioning
+    * [Maven – Maven CI Friendly Versions](https://maven.apache.org/maven-ci-friendly.html)
+    * [Simplified application versioning with maven](https://blog.pchudzik.com/201905/maven-revision/)
+    * [Faster release with Maven CI Friendly Versions and a customised flatten plugin | by Avi Youkhananov | Outbrain Engineering | Medium](https://medium.com/outbrain-engineering/faster-release-with-maven-ci-friendly-versions-and-a-customised-flatten-plugin-fe53f0fcc0df)
+  * Plugins
+    * [License Maven Plugin – Introduction](https://www.mojohaus.org/license-maven-plugin/)
+    * [Maven Flatten Plugin – Flatten Maven Plugin](https://www.mojohaus.org/flatten-maven-plugin/)
+    * 
 
 ```shell
 git commit --allow-empty -m "(MINOR) Empty commit, bumps MINOR version"

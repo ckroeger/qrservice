@@ -65,7 +65,7 @@ jobs:
         echo "Outputs: ${{ steps.tag_version_develop.outputs.version }}"
 
     - name: Build with Maven
-      run: mvn -B --no-transfer-progress package --file pom.xml
+      run: mvn -Drevision="${{ steps.tag_version_develop.outputs.version }}" -B --no-transfer-progress package --file pom.xml
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph

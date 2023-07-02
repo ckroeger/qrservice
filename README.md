@@ -14,6 +14,7 @@ Example Urls:
 
 ## todos
 * Add Spring Rest Doc
+* Add Image creation and github package release
 * ✅ Set Version to maven
 
 

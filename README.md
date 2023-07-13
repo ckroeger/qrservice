@@ -11,10 +11,14 @@ Maximum ``with/height`` is ``800`` pixels.
 Example Urls:
 * http://localhost:8080/qrcode?text=Hallo
 * http://localhost:8080/qrcode?text=Hallo&width=450&height=450
+* http://localhost:8080/qrcode/qrcode.png
+* http://localhost:8080/qrcode/{fileName}?text=Hallo&width=450&height=450
+* API-Doc http://localhost:8080/swagger-ui/index.html
 
 ## todos
-* Add Spring Rest Doc
+* Pom-Version in Swagger-Doc -> AppConfig
 * Add Image creation and github package release
+* ✅ Add Spring Rest Doc
 * ✅ Set Version to maven
 
 

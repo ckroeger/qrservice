@@ -1,0 +1,66 @@
+name: "tagged-release"
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  tagged-release:
+    name: "Tagged Release"
+    runs-on: "ubuntu-latest"
+    permissions: write-all
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 18
+        uses: actions/setup-java@v3
+        with:
+          java-version: '18'
+          distribution: 'temurin'
+          cache: maven
+
+      #  https://github.com/marketplace/actions/git-semantic-version
+
+      - name: Git Semantic Version
+        uses: PaulHatch/semantic-version@v5.0.3
+        id: tag_version_develop
+        with:
+          # The prefix to use to identify tags
+          tag_prefix: "v"
+          # A string which, if present in a git commit, indicates that a change represents a
+          # major (breaking) change, supports regular expressions wrapped with '/'
+          major_pattern: "(MAJOR)"
+          # A string which indicates the flags used by the `major_pattern` regular expression. Supported flags: idgs
+          major_regexp_flags: ""
+          # Same as above except indicating a minor change, supports regular expressions wrapped with '/'
+          minor_pattern: "(MINOR)"
+          # A string which indicates the flags used by the `minor_pattern` regular expression. Supported flags: idgs
+          minor_regexp_flags: ""
+          # A string to determine the format of the version output
+          version_format: "${major}.${minor}.${patch}-prerelease${increment}"
+          # Named version, will be used as suffix for name version tag
+          namespace: qrservice
+          # If this is set to true, *every* commit will be treated as a new version.
+          bump_each_commit: true
+          # If true, the body of commits will also be searched for major/minor patterns to determine the version type.
+          search_commit_body: false
+          # The output method used to generate list of users, 'csv' or 'json'.
+          user_format_type: "csv"
+
+      - name: Version output
+        run: |
+          echo "${{ steps.tag_version_develop.outputs.version_tag }}"
+          echo "Outputs: ${{ steps.tag_version_develop.outputs.version }}"
+
+      - name: Build with Maven
+        run: mvn -Drevision="${{ steps.tag_version_develop.outputs.version }}" -B --no-transfer-progress package --file pom.xml
+
+      - name: Build and push image
+        run: |
+          docker login --username ckroeger --password ${{ secrets.IMAGE_PUSH_TOKEN }} ghcr.io
+          docker build -t ghcr.io/ckroeger/qrservice:${{ steps.tag_version_develop.outputs.version }} .
+          docker push ghcr.io/ckroeger/qrservice:${{ steps.tag_version_develop.outputs.version }}

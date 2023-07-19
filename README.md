@@ -16,13 +16,15 @@ Example Urls:
 * API-Doc http://localhost:8080/swagger-ui/index.html
 
 ## todos
-* Pom-Version in Swagger-Doc -> AppConfig
 * Add Image creation and github package release
+* ✅ Pom-Version in Swagger-Doc -> AppConfig
 * ✅ Add Spring Rest Doc
 * ✅ Set Version to maven
 
 
 ## Knowledge-Sources
+* REST
+  * [Chapter 1: Introduction to REST APIs | I'd Rather Be Writing Blog and API doc course](https://idratherbewriting.com/learnapidoc/docapis_introtoapis.html)
 * SemVer for GH-Action:
   * [git - Github versioning: is it possible to have two separate sequences in the tags? - Stack Overflow](https://stackoverflow.com/questions/73121689/github-versioning-is-it-possible-to-have-two-separate-sequences-in-the-tags)
   * [actions/upload-release-asset: An Action to upload a release asset via the GitHub Release API](https://github.com/actions/upload-release-asset)

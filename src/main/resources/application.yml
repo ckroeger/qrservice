@@ -1,0 +1,3 @@
+app:
+  pom:
+    version: "@pom.version@"

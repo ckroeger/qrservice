@@ -42,7 +42,6 @@ public class QRController {
      * @param asFile   download as file (default = false)
      * @param width    in pixel (optional - default = 350)
      * @param height   in pixel (optional - default = 350)
-     * @throws Exception
      */
     @GetMapping(path = {"", "/{fileName}"})
     @Operation(summary = "Download a qrfile")

@@ -9,7 +9,7 @@ Maximum ``with/height`` is ``800`` pixels.
 
 ## 🏃 start as docker-container
 ```shell
-docker run -p 8080:8080 -d ghcr.io/ckroeger/qrservice:0.3.1-prerelease0
+docker run -p 8080:8080 -d ghcr.io/ckroeger/qrservice:0.4.0-prerelease0
 ```
 
 ## 🌐 usage

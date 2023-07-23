@@ -6,8 +6,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.servlet.ServletOutputStream;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -23,6 +21,7 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("qr/")
 public class QRController {
 
     public static final String DEFAULT_SIZE = "350";
@@ -33,59 +32,50 @@ public class QRController {
      * <p>
      * Example Urls:
      * <ul>
-     *     <li>http://localhost:8080/qrcode?text=Hallo</li>
-     *     <li>http://localhost:8080/qrcode?text=Hallo&width=450&height=450</li>
+     *     <li>http://localhost:8080/qr/qrcode?text=Hallo</li>
+     *     <li>http://localhost:8080/qr/qrcode?text=Hallo&width=450&height=450</li>
+     *     <li>http://localhost:8080/qr/qrcode.png?text=Hallo&asFile=true</li>
      * </ul>
      *
-     * @param response {@link HttpServletResponse} injected by spring
-     * @param text     Text that is converted to qrcode
-     * @param width    in pixel (default = 350)
-     * @param height   in pixel (default = 350)
+     * @param fileName path-param for name (optional)
+     * @param text     Text that is converted to qrcode (required)
+     * @param asFile   download as file (default = false)
+     * @param width    in pixel (optional - default = 350)
+     * @param height   in pixel (optional - default = 350)
      * @throws Exception
      */
-    @GetMapping(
-            path = "/qrcode.png",
-            produces = MediaType.IMAGE_PNG_VALUE
-    )
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "success", content = {@Content(
-                    mediaType = MediaType.IMAGE_PNG_VALUE)})
-    })
-    public void generateQRCode(HttpServletResponse response,
-                               @RequestParam String text,
-                               @RequestParam(defaultValue = DEFAULT_SIZE) int width,
-                               @RequestParam(defaultValue = DEFAULT_SIZE) int height) throws WriterException, IOException {
-        BufferedImage image = qrCodeService.generateQRCode(text, width, height);
-        ServletOutputStream outputStream = response.getOutputStream();
-        response.setContentType(MediaType.IMAGE_PNG_VALUE);
-        ImageIO.write(image, "png", outputStream);
-        outputStream.flush();
-        outputStream.close();
-    }
-
-    @RequestMapping(path = "/qrcode/{fileName}", method = RequestMethod.GET)
+    @GetMapping(path = {"", "/{fileName}"})
     @Operation(summary = "Download a qrfile")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "success", content = {@Content(
                     mediaType = MediaType.IMAGE_PNG_VALUE)})
     })
-    public ResponseEntity<Resource> downloadQrFile(
-            @PathVariable String fileName,
+    public ResponseEntity<Resource> generateQRCode(
+            @PathVariable(required = false) String fileName,
             @RequestParam String text,
+            @RequestParam(value = "asFile", required = false, defaultValue = "false") boolean asFile,
             @RequestParam(defaultValue = DEFAULT_SIZE) int width,
             @RequestParam(defaultValue = DEFAULT_SIZE) int height
-    ) throws IOException, WriterException {
+    ) throws IOException,
+
+            WriterException {
+        BufferedImage image = qrCodeService.generateQRCode(text, width, height);
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
+        return sendAsFile(headers, asFile, image, fileName);
+    }
+
+    private ResponseEntity<Resource> sendAsFile(HttpHeaders headers, boolean asFile, BufferedImage image, String fileName) throws IOException {
+        if (asFile) {
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
+        }
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
-        BufferedImage image = qrCodeService.generateQRCode(text, width, height);
         ByteArrayResource resource = new ByteArrayResource(toByteArray(image, "png"));
         return ResponseEntity.ok()
                 .headers(headers)
                 .contentLength(resource.contentLength())
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .contentType(asFile ? MediaType.APPLICATION_OCTET_STREAM : MediaType.IMAGE_PNG)
                 .body(resource);
     }
 

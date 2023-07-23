@@ -32,11 +32,11 @@ Still not using github-issues to manage features and bugs 👼.
 
 List:
 * ❌ add release-info in readme.md
-* ✅ add favicon
-* ✅ Add Image creation and github package release
-* ✅ Pom-Version in Swagger-Doc -> AppConfig
-* ✅ Add Spring Rest Doc
-* ✅ Set Version to maven
+* ✅ ~~add favicon~~
+* ✅ ~~Add Image creation and github package release~~
+* ✅ ~~Pom-Version in Swagger-Doc -> AppConfig~~
+* ✅ ~~Add Spring Rest Doc~~
+* ✅ ~~Set Version to maven~~
 
 ## 📖 Knowledge-Sources
 * REST
@@ -62,6 +62,8 @@ List:
   * [Guide to the Favicon in Spring Boot | Baeldung](https://www.baeldung.com/spring-boot-favicon)
 * Emoji
   * [Emoji Finder 😅 Search for Emoji](https://emojifinder.com/)
+* Markdown
+  * [Markdown Cheat Sheet | Markdown Guide](https://www.markdownguide.org/cheat-sheet/)
 
 ## 🧑‍💻️ Development
 This Service is implemented with spring boot v3.1.x and needs at least Java 17 and Maven 3.
@@ -93,3 +95,5 @@ git commit --allow-empty -m "(MINOR) Empty commit, bumps MINOR version"
 git commit --allow-empty -m "(MAJOR) Empty commit, bumps MAJOR version"
 ```
 
+<!-- Templating vars -->
+<!-- VERSION:"0.4.0-prerelease0" -->
